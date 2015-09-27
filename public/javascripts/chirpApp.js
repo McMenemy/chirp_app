@@ -13,6 +13,7 @@ app.config(function($routeProvider){
 	$routeProvider
 		//the timeline display
 		.when('/', {
+			//sesion data here                <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 			templateUrl: 'main.html',
 			controller: 'mainController'
 		})

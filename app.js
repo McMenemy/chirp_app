@@ -8,11 +8,11 @@ var session = require('express-session');
 var passport = require('passport');
 //initialize mongoose schemas
 require('./models/models');
-var index = require('./routes/index');
 var api = require('./routes/api');
 var authenticate = require('./routes/authenticate')(passport);
-var mongoose = require('mongoose');                         //add for Mongo support
-mongoose.connect('mongodb://localhost/test-chirp');              //connect to Mongo
+var session = require("express-session");
+var mongoose = require('mongoose');                             //add for Mongo support
+mongoose.connect('mongodb://localhost/test-chirp');             //connect to Mongo
 var app = express();
 
 // view engine setup
@@ -23,7 +23,10 @@ app.set('view engine', 'ejs');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(session({
-  secret: 'keyboard cat'
+    resave: true, 
+    saveUninitialized: true, 
+    secret: 'y2xwihj74e9', 
+    cookie: { maxAge: 60000 }
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -32,7 +35,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', index);
 app.use('/auth', authenticate);
 app.use('/api', api);
 
