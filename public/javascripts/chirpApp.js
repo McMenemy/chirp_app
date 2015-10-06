@@ -1,3 +1,5 @@
+var session = require("express-session");
+
 var app = angular.module('chirpApp', ['ngRoute', 'ngResource']).run(function($rootScope) {
 	$rootScope.authenticated = false;
 	$rootScope.current_user = '';
@@ -56,6 +58,7 @@ app.controller('authController', function($scope, $http, $rootScope, $location){
       if(data.state == 'success'){
         $rootScope.authenticated = true;
         $rootScope.current_user = data.user.username;
+        // session.current_user = data.user.username;  // << session workingS
         $location.path('/');
       }
       else{
